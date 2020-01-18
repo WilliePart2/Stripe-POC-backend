@@ -22,8 +22,275 @@
       "stripePublishableKey": "pk_test_BD2xmQeAa1Dnrjz6x55KokvQ00Cy97Ixff"
     }
   ],
-  "payments": [],
+  "payments": [
+    {
+      "id": "pi_1G2P7vK5xVH1dUGDtOSfAXaU",
+      "object": "payment_intent",
+      "amount": 100,
+      "amount_capturable": 0,
+      "amount_received": 0,
+      "application": null,
+      "application_fee_amount": null,
+      "canceled_at": null,
+      "cancellation_reason": null,
+      "capture_method": "automatic",
+      "charges": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "total_count": 0,
+        "url": "/v1/charges?payment_intent=pi_1G2P7vK5xVH1dUGDtOSfAXaU"
+      },
+      "client_secret": "pi_1G2P7vK5xVH1dUGDtOSfAXaU_secret_k4SEQKqt2opddjUV4jieRu6T2",
+      "confirmation_method": "automatic",
+      "created": 1579384003,
+      "currency": "usd",
+      "customer": null,
+      "description": "API test payment description",
+      "invoice": null,
+      "last_payment_error": null,
+      "livemode": false,
+      "metadata": {
+        "description": "API test payment description",
+        "accountHolderId": "1"
+      },
+      "next_action": null,
+      "on_behalf_of": null,
+      "payment_method": null,
+      "payment_method_options": {
+        "card": {
+          "installments": null,
+          "request_three_d_secure": "automatic"
+        }
+      },
+      "payment_method_types": [
+        "card"
+      ],
+      "receipt_email": null,
+      "review": null,
+      "setup_future_usage": null,
+      "shipping": null,
+      "source": null,
+      "statement_descriptor": null,
+      "statement_descriptor_suffix": null,
+      "status": "requires_payment_method",
+      "transfer_data": null,
+      "transfer_group": null
+    },
+    {
+      "id": "pi_1G2P9zK5xVH1dUGDAK5tjNIZ",
+      "object": "payment_intent",
+      "amount": 100,
+      "amount_capturable": 0,
+      "amount_received": 0,
+      "application": null,
+      "application_fee_amount": null,
+      "canceled_at": null,
+      "cancellation_reason": null,
+      "capture_method": "automatic",
+      "charges": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "total_count": 0,
+        "url": "/v1/charges?payment_intent=pi_1G2P9zK5xVH1dUGDAK5tjNIZ"
+      },
+      "client_secret": "pi_1G2P9zK5xVH1dUGDAK5tjNIZ_secret_4KK74jUp7xCawT7SdPa0r4Qa6",
+      "confirmation_method": "automatic",
+      "created": 1579384131,
+      "currency": "usd",
+      "customer": null,
+      "description": "API test payment description",
+      "invoice": null,
+      "last_payment_error": null,
+      "livemode": false,
+      "metadata": {
+        "description": "API test payment description",
+        "accountHolderId": "1"
+      },
+      "next_action": null,
+      "on_behalf_of": null,
+      "payment_method": null,
+      "payment_method_options": {
+        "card": {
+          "installments": null,
+          "request_three_d_secure": "automatic"
+        }
+      },
+      "payment_method_types": [
+        "card"
+      ],
+      "receipt_email": null,
+      "review": null,
+      "setup_future_usage": null,
+      "shipping": null,
+      "source": null,
+      "statement_descriptor": null,
+      "statement_descriptor_suffix": null,
+      "status": "requires_payment_method",
+      "transfer_data": null,
+      "transfer_group": null
+    },
+    {
+      "id": "pi_1G2PAiK5xVH1dUGDD90jfk62",
+      "object": "payment_intent",
+      "amount": 100,
+      "amount_capturable": 0,
+      "amount_received": 0,
+      "application": null,
+      "application_fee_amount": null,
+      "canceled_at": null,
+      "cancellation_reason": null,
+      "capture_method": "automatic",
+      "charges": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "total_count": 0,
+        "url": "/v1/charges?payment_intent=pi_1G2PAiK5xVH1dUGDD90jfk62"
+      },
+      "client_secret": "pi_1G2PAiK5xVH1dUGDD90jfk62_secret_sKe2pyhI9YHhali5rh2QyLca6",
+      "confirmation_method": "automatic",
+      "created": 1579384176,
+      "currency": "usd",
+      "customer": null,
+      "description": "API test payment description",
+      "invoice": null,
+      "last_payment_error": null,
+      "livemode": false,
+      "metadata": {
+        "description": "API test payment description",
+        "accountHolderId": "1"
+      },
+      "next_action": null,
+      "on_behalf_of": null,
+      "payment_method": null,
+      "payment_method_options": {
+        "card": {
+          "installments": null,
+          "request_three_d_secure": "automatic"
+        }
+      },
+      "payment_method_types": [
+        "card"
+      ],
+      "receipt_email": null,
+      "review": null,
+      "setup_future_usage": null,
+      "shipping": null,
+      "source": null,
+      "statement_descriptor": null,
+      "statement_descriptor_suffix": null,
+      "status": "requires_payment_method",
+      "transfer_data": null,
+      "transfer_group": null
+    },
+    {
+      "id": "pi_1G2PCRK5xVH1dUGDwSppyChz",
+      "object": "payment_intent",
+      "amount": 100,
+      "amount_capturable": 0,
+      "amount_received": 0,
+      "application": null,
+      "application_fee_amount": null,
+      "canceled_at": null,
+      "cancellation_reason": null,
+      "capture_method": "automatic",
+      "charges": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "total_count": 0,
+        "url": "/v1/charges?payment_intent=pi_1G2PCRK5xVH1dUGDwSppyChz"
+      },
+      "client_secret": "pi_1G2PCRK5xVH1dUGDwSppyChz_secret_ne5iSztZnB5Vzxy3L1vKdYWQN",
+      "confirmation_method": "automatic",
+      "created": 1579384283,
+      "currency": "usd",
+      "customer": null,
+      "description": "API test payment description",
+      "invoice": null,
+      "last_payment_error": null,
+      "livemode": false,
+      "metadata": {
+        "description": "API test payment description",
+        "accountHolderId": "1"
+      },
+      "next_action": null,
+      "on_behalf_of": null,
+      "payment_method": null,
+      "payment_method_options": {
+        "card": {
+          "installments": null,
+          "request_three_d_secure": "automatic"
+        }
+      },
+      "payment_method_types": [
+        "card"
+      ],
+      "receipt_email": null,
+      "review": null,
+      "setup_future_usage": null,
+      "shipping": null,
+      "source": null,
+      "statement_descriptor": null,
+      "statement_descriptor_suffix": null,
+      "status": "requires_payment_method",
+      "transfer_data": null,
+      "transfer_group": null
+    }
+  ],
   "charges": [],
-  "transfers": [],
-  "payment_user": []
+  "transfers": [
+    {
+      "id": "tr_1G2PgHK5xVH1dUGDYw6GPxRA",
+      "object": "transfer",
+      "amount": 100,
+      "amount_reversed": 0,
+      "balance_transaction": "txn_1G2PgHK5xVH1dUGDEqUs5R9v",
+      "created": 1579386133,
+      "currency": "usd",
+      "description": "Transfer from transaction",
+      "destination": "acct_1G2M3SE4m3ifvKnX",
+      "destination_payment": "py_1G2PgHE4m3ifvKnXFd3tUSq8",
+      "livemode": false,
+      "metadata": {
+        "description": "Transfer from transaction",
+        "accountHolderId": "acct_1G2M3SE4m3ifvKnX"
+      },
+      "reversals": {
+        "object": "list",
+        "data": [],
+        "has_more": false,
+        "total_count": 0,
+        "url": "/v1/transfers/tr_1G2PgHK5xVH1dUGDYw6GPxRA/reversals"
+      },
+      "reversed": false,
+      "source_transaction": "ch_1G2PCiK5xVH1dUGD9vi5C876",
+      "source_type": "card",
+      "transfer_group": "group_pi_1G2PCRK5xVH1dUGDwSppyChz"
+    }
+  ],
+  "payment_user": [
+    {
+      "userId": 1,
+      "paymentId": "pi_1G2P7vK5xVH1dUGDtOSfAXaU",
+      "clientSecret": "pi_1G2P7vK5xVH1dUGDtOSfAXaU_secret_k4SEQKqt2opddjUV4jieRu6T2"
+    },
+    {
+      "userId": 1,
+      "paymentId": "pi_1G2P9zK5xVH1dUGDAK5tjNIZ",
+      "clientSecret": "pi_1G2P9zK5xVH1dUGDAK5tjNIZ_secret_4KK74jUp7xCawT7SdPa0r4Qa6"
+    },
+    {
+      "userId": 1,
+      "paymentId": "pi_1G2PAiK5xVH1dUGDD90jfk62",
+      "clientSecret": "pi_1G2PAiK5xVH1dUGDD90jfk62_secret_sKe2pyhI9YHhali5rh2QyLca6"
+    },
+    {
+      "userId": 1,
+      "paymentId": "pi_1G2PCRK5xVH1dUGDwSppyChz",
+      "clientSecret": "pi_1G2PCRK5xVH1dUGDwSppyChz_secret_ne5iSztZnB5Vzxy3L1vKdYWQN"
+    }
+  ]
 }

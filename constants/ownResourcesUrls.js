@@ -1,5 +1,3 @@
-const os = require('os');
-
 const getHostAddr = () => 'http://localhost:4200';
 
 module.exports = {

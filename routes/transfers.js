@@ -7,11 +7,23 @@ const {commonWrapper} = require("../requestWrappers");
 const stripe = require('stripe')(STRIPE_API_SECRET);
 const router = express.Router();
 
+/**
+ * Need support of consistency to properly handle it
+ */
 router.post('/transfers', commonWrapper(async ({ body }, res) => {
     const userId = Number(body.userId);
     const amount = body.amount;
-    const sourceTransaction = body.sourceTransaction;
+    const paymentId = body.paymentId;
     const description = body.description;
+
+    /**
+     * @type {PaymentIntent}
+     */
+    const payment = await stripe.paymentIntents.retrieve(paymentId);
+    /**
+     * @type {Charge}
+     */
+    const [ charge = {} ] = payment.charges ? payment.charges.data : [];
 
     /**
      * @type {UserObj}
@@ -21,10 +33,10 @@ router.post('/transfers', commonWrapper(async ({ body }, res) => {
 
     const transfer = await stripe.transfers.create({
         amount,
-        currency: 'gbp',
+        currency: charge.currency,
         description,
         destination: userStripeId,
-        source_transaction: sourceTransaction,
+        source_transaction: charge.id,
         metadata: {
             description,
             accountHolderId: userStripeId,
@@ -34,6 +46,12 @@ router.post('/transfers', commonWrapper(async ({ body }, res) => {
     await transferContext.push(transfer);
 
     return transfer;
+}));
+
+router.get('/transfers/:id', commonWrapper(async (req, res) => {
+    const transferId = req.params.id;
+
+    return await stripe.transfers.retrieve(transferId);
 }));
 
 router.get('/transfers', commonWrapper(async (req, res) => {

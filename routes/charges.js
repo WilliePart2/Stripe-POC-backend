@@ -6,9 +6,7 @@ const stripe = require('stripe')(STRIPE_API_SECRET);
 const {commonWrapper} = require("../requestWrappers");
 const router = express.Router();
 
-const resourceName = '/charges';
-
-router.post(resourceName, commonWrapper(async (req, res) => {
+router.post('/charges', commonWrapper(async (req, res) => {
     const charge = await stripe.charges.create({
         amount: 1000,
         currency: "usd",
@@ -24,6 +22,12 @@ router.post(resourceName, commonWrapper(async (req, res) => {
     return charge;
 }));
 
-router.get(resourceName, commonWrapper(() => chargeContext.getAll()));
+router.get('/charges/:id', commonWrapper(async (req, res) => {
+    const chargeId = req.params.id;
+
+    return await stripe.charges.retrieve(ch_1G2PCiK5xVH1dUGD9vi5C876);
+}));
+
+router.get('/charges', commonWrapper(() => chargeContext.getAll()));
 
 module.exports = router;
