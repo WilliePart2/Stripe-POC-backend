@@ -1,0 +1,29 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "email": "test@test.com",
+      "socialUrl": "https://facebook.com",
+      "country": "gb",
+      "phoneNumber": "0000000000",
+      "businessAlias": "test business name",
+      "firstName": "test first name",
+      "lastName": "test last name",
+      "dateOfBorn": "2000-01-16T23:01:16.888Z",
+      "productDescription": "test product description",
+      "streetAddress": "test street address",
+      "city": "test city",
+      "zip": "test zip",
+      "state": "test state",
+      "accessToken": "sk_test_KlzmC4As832wKvx2Cj5MmnEE00JvePmpfe",
+      "refreshToken": "rt_GZV4HpkosTirgso5EzWZzTIc5sFFGP3AoqE0V4ga2hYsV2Qn",
+      "livemode": false,
+      "stripeUserId": "acct_1G2M3SE4m3ifvKnX",
+      "stripePublishableKey": "pk_test_BD2xmQeAa1Dnrjz6x55KokvQ00Cy97Ixff"
+    }
+  ],
+  "payments": [],
+  "charges": [],
+  "transfers": [],
+  "payment_user": []
+}
