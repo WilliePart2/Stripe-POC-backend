@@ -1,9 +1,9 @@
 const {STRIPE_API_SECRET} = process.env;
 
 const express = require('express');
-const {paymentUserContext} = require("../db");
+const {stripePayments} = require("../constants");
 const stripe = require('stripe')(STRIPE_API_SECRET);
-const {paymentContext} = require("../db");
+const {paymentContext, paymentUserContext, userContext} = require("../db");
 const {commonWrapper} = require("../requestWrappers");
 const router = express.Router();
 
@@ -28,13 +28,6 @@ const router = express.Router();
  */
 
 /**
- * @typedef List
- * @property {Array} data
- * @property {boolean} has_more
- * @property {number} total_count
- */
-
-/**
  * @typedef PaymentIntent
  * @property {string} id
  * @property {string} client_secret
@@ -49,9 +42,10 @@ const router = express.Router();
  * @property {string} transfer_group
  */
 
-router.post('/payments', commonWrapper(async ({body}, res) => {
-  const userId = Number(body.userId);
+router.post('/payments/authorize', commonWrapper(async ({body}, res) => {
+  const stripeUserId = body.stripeUserId;
   const amount = body.amount;
+  const currency = body.currency;
   const description = 'API test payment description';
 
   /**
@@ -60,24 +54,35 @@ router.post('/payments', commonWrapper(async ({body}, res) => {
   const payment = await stripe.paymentIntents.create({
     amount,
     description,
-    currency: 'usd',
+    currency,
     payment_method_types: ['card'],
+    capture_method: stripePayments.captureMethods.MANUAL,
     metadata: {
       description,
-      accountHolderId: userId,
+      stripeUserId,
+      accountHolderId: stripeUserId,
     },
   });
 
-  await paymentUserContext.add(userId, payment);
-  await paymentContext.push(payment);
+  await paymentUserContext.add(stripeUserId, payment);
+  // await paymentContext.push(payment);
 
   return {
     clientSecret: payment.client_secret,
+    paymentIntentId: payment.id,
   };
 }));
 
+router.post('/payments/capture', commonWrapper(({ body }) => {
+  const paymentIntentId = body.paymentIntentId;
+
+  return stripe.paymentIntents.capture(paymentIntentId);
+}));
+
 router.get('/payments', commonWrapper(async (req, res) => {
-  return paymentContext.getAll();
+  return stripe.paymentIntents.list({
+    limit: 100,
+  });
 }));
 
 router.get('/payments/:id', commonWrapper(async (req, res) => {
@@ -105,6 +110,7 @@ router.get('/payments/:id/transfers', commonWrapper(async (req) => {
 
   return stripe.transfers.list({
     transfer_group: paymentIntent.transfer_group,
+    limit: 100,
   });
 }));
 

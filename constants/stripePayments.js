@@ -4,18 +4,18 @@ const nextAction = {
 };
 
 const captureMethods = {
-    manual: 'manual',
-    automatic: 'automatic',
+    MANUAL: 'manual',
+    AUTOMATIC: 'automatic',
 };
 
 const paymentStatus = {
-    requiresPaymentMethod: 'requires_payment_method', // 1
-    requiresConfirmation: 'requires_confirmation', // 2
-    requiresAction: 'requires_action', // 3 (optional)
-    processing: 'processing', // 4
-    requiresCapture: 'requires_capture', // 5 (optional???)
-    succeeded: 'succeeded',
-    canceled: 'canceled',
+    REQUIRES_PAYMENT_METHOD: 'requires_payment_method', // 1
+    REQUIRES_CONFIRMATION: 'requires_confirmation', // 2
+    REQUIRES_ACTION: 'requires_action', // 3 (optional)
+    PROCESSING: 'processing', // 4
+    REQUIRES_CAPTURE: 'requires_capture', // 5 (optional???)
+    SUCCEEDED: 'succeeded',
+    CANCELED: 'canceled',
 };
 
 module.exports = {

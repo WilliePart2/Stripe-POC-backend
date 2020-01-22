@@ -62,6 +62,10 @@ const route = express.Router();
  * @property {string} url
  */
 
+/**
+ * Start a user onboarding
+ * Redirect the client to the Stripe's onboarding
+ */
 route.get('/users/:id/onboarding', commonWrapper(async (req, res) => {
     const userId = Number(req.params.id);
     const userEntity = await userContext.findById(userId);
@@ -94,7 +98,10 @@ route.get('/users/:id/onboarding', commonWrapper(async (req, res) => {
 /**
  * @internal
  *
- * If fail here we should retry the whole process
+ * Receive a user's redirection from the Stripe onboarding
+ * Exchange the auth code to user access data
+ *
+ * If fail here we should retry the whole onboarding process
  */
 route.get('/users/callback', commonWrapper(async (req, res) => {
     const code = req.query.code;
@@ -113,6 +120,15 @@ route.get('/users/callback', commonWrapper(async (req, res) => {
         throw new UnauthorizedException('Onboarding failed');
     }
 
+    userContext.push({
+        id: userAuthData.stripe_user_id,
+        accessToken: userAuthData.access_token,
+        refreshToken: userAuthData.refresh_token,
+        livemode: userAuthData.livemode,
+        stripeUserId: userAuthData.stripe_user_id,
+        stripePublishableKey: userAuthData.stripe_publishable_key,
+    });
+
     userContext.updateById(userId, {
         accessToken: userAuthData.access_token,
         refreshToken: userAuthData.refresh_token,
@@ -124,6 +140,10 @@ route.get('/users/callback', commonWrapper(async (req, res) => {
     res.redirect(resources.clientAppUrl());
 }));
 
+/**
+ * Check was user connected via Stripe or not
+ * Accept internal user id
+ */
 route.get('/users/:id/initialized', commonWrapper(async (req, res) => {
     const userId = Number(req.params.id);
 
@@ -134,6 +154,10 @@ route.get('/users/:id/initialized', commonWrapper(async (req, res) => {
     };
 }));
 
+/**
+ * Return a link object for accessing the express dashboard
+ * Accept internal user id
+ */
 route.get('/users/:id/dashboard', commonWrapper(async (req, res) => {
     const userId = Number(req.params.id);
 
@@ -152,24 +176,37 @@ route.get('/users/:id/dashboard', commonWrapper(async (req, res) => {
     return linkObj;
 }));
 
-route.get('/users/:id', commonWrapper(async (req, res) => {
-    const userId = Number(req.params.id);
-
-    /**
-     * @type {UserObj}
-     */
-    const userObj = await userContext.findById(userId);
-
-    return userObj;
+/**
+ * Return all users from internal datastore
+ */
+route.get('/users/internals', commonWrapper(() => {
+    return userContext.getAll();
 }));
 
-route.get('/users', commonWrapper(async (req, res) => {
-    /**
-     * @type {UserObj[]}
-     */
-    const usersList = await userContext.getAll();
+/**
+ * Return user object by id from internal datastore
+ */
+route.get('/users/:id/internals', commonWrapper(({ params }) => {
+    const userId = Number(params.id);
+    return userContext.findById(userId);
+}));
 
-    return usersList;
+/**
+ * Return user object by id from Stripe
+ */
+route.get('/users/:id', commonWrapper(({ params }) => {
+    const stripeUserId = params.id;
+
+    return stripe.accounts.retrieve(stripeUserId);
+}));
+
+/**
+ * Return all users from Stripe
+ */
+route.get('/users', commonWrapper((req, res) => {
+    return stripe.accounts.list({
+        limit: 100,
+    });
 }));
 
 /**
@@ -194,6 +231,9 @@ route.post('/users/:id/account', commonWrapper(async (req, res) => {
 }));
 
 /**
+ * Rotate an access_token via refresh_token
+ * access_token is newer expire but it is a good idea to do rotation from time to time
+ *
  * refresh_token could be used many times to receive an access_token
  */
 route.patch('/users/token', commonWrapper(async (req, res) => {
@@ -221,10 +261,44 @@ route.patch('/users/token', commonWrapper(async (req, res) => {
     res.status(200).json({ token: newAccessToke.access_token });
 }));
 
+/**
+ * Return relating between a user to the payment performed by the user
+ */
 route.get('/users/:id/payments', commonWrapper((req, res) => {
     const userId = Number(req.params.id);
 
     return paymentUserContext.findByUserId(userId);
+}));
+
+/**
+ * @param {string} id - stripe user id
+ */
+route.get('/users/:id/balances', commonWrapper(({ params }) => {
+    const stripeUserId = params.id;
+
+    return stripe.balance.retrieve({}, { stripe_account: stripeUserId });
+}));
+
+/**
+ * Dont work for now
+ * @params {string} id - stripe user id
+ */
+route.post('/users/payouts', commonWrapper(({ body }) => {
+    const { stripeUserId, amount, currency, description } = body;
+
+    return stripe.payouts.create(
+      {
+          amount,
+          currency,
+          description,
+          metadata: {
+              description,
+          }
+      },
+      {
+          stripe_account: stripeUserId,
+      }
+    );
 }));
 
 module.exports = route;

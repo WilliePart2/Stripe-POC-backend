@@ -19,6 +19,9 @@ db.initDB().then(() => {
   app.use(routes.transfers);
   app.use(routes.charges);
   app.use(routes.users);
+  app.use(routes.balanceTransactions);
+  app.use(routes.payouts);
+  app.use(routes.balances);
 
   /**
    * Common error handler
